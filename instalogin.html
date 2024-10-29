@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design -->
+    <title>i7</title>
+    <style>
+        body {
+            background-color: #000; /* Black background */
+            font-family: Arial, sans-serif;
+            margin: 0; /* Remove default margin */
+            padding: 20px; /* Add padding for better layout */
+            text-align: center; /* Center align content */
+            color: white; /* Default text color */
+        }
+        a {
+            color: dodgerblue;
+            font-size: 14px; /* Size for the links */
+            text-decoration: none; /* Remove underline from all links */
+        }
+        .input-container {
+            position: relative; /* For positioning the button inside the container */
+            width: 90%;
+            max-width: 400px;
+            margin: 10px auto;
+        }
+        .input-box {
+            background-color: #000; /* Black background color for input fields */
+            color: #fff; /* White text color */
+            border: 1px solid rgba(255, 255, 255, 0.5); /* Light white border */
+            padding: 12px;
+            padding-right: 50px; /* Space for the button */
+            width: 100%; /* Full width */
+            box-sizing: border-box;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .input-box::placeholder {
+            color: #bbb; /* Lighter gray for placeholder text */
+        }
+        .show-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #000; /* Black background for button */
+            border: none; /* No border */
+            color: #fff; /* White text color */
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 5px;
+            display: none; /* Hide button by default */
+        }
+        .forgot-password, .forgot-name {
+            width: 90%;
+            max-width: 400px;
+            margin: 10px auto;
+            text-align: center;
+        }
+        .forgot-password a, .forgot-name a {
+            font-size: 12px; /* Reduce the font size */
+        }
+        .im-here {
+            color: grey; /* Light grey text color for the additional text */
+            font-size: 12px; /* Same font size as the link */
+            margin-right: 5px; /* Spacing between text and link */
+        }
+        .language-selector {
+            margin-bottom: 15px; /* Add space between the language selector and input fields */
+        }
+        .language-selector select {
+            background-color: #000;
+            color: grey;
+            border: none; /* Remove border */
+            padding: 5px; /* Smaller padding */
+            border-radius: 3px; /* Slight rounding */
+            font-size: 12px; /* Smaller font size */
+            outline: none; /* Remove outline */
+        }
+        button {
+            padding: 10px 20px; /* Button padding */
+            background-color: dodgerblue; /* Button background color */
+            color: white; /* Button text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 1.2rem; /* Responsive font size */
+            margin-top: 10px; /* Spacing above button */
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker background on hover */
+        }
+        /* Styling for images */
+        .responsive-img {
+            max-width: 100%; /* Responsive image width */
+            height: auto; /* Maintain aspect ratio */
+            margin: 10px 0; /* Spacing above and below images */
+        }
+    </style>
+</head>
+<body>
+
+<div class="language-selector">
+    <select id="language-selector" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="ml">മലയാളം (Malayalam)</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+        <option value="es">Español (Spanish)</option>
+        <option value="fr">Français (French)</option>
+        <option value="de">Deutsch (German)</option>
+        <option value="zh">中文 (Chinese)</option>
+        <option value="ja">日本語 (Japanese)</option>
+        <option value="ru">Русский (Russian)</option>
+        <option value="ar">العربية (Arabic)</option>
+        <option value="pt">Português (Portuguese)</option>
+        <option value="it">Italiano (Italian)</option>
+        <option value="ko">한국어 (Korean)</option>
+        <option value="vi">Tiếng Việt (Vietnamese)</option>
+    </select>
+</div>
+
+<a href="https://www.facebook.com/">
+    <img class="responsive-img" src="https://assets.onecompiler.app/42tmq6jud/3ww47radw/1000096260.jpg" alt="Facebook Logo">
+</a>
+
+<img class="responsive-img" src="https://assets.onecompiler.app/42tmq6jud/3ww47radw/1000096232.jpg" alt="Image 1">
+
+<img class="responsive-img" src="https://assets.onecompiler.app/42tmq6jud/3ww47radw/1000096261.jpg" alt="Image 2">
+
+<div class="input-container">
+    <input type="text" id="username" class="input-box" placeholder="Phone number, username or email address">
+</div>
+
+<div class="input-container">
+    <input type="password" id="password" class="input-box" placeholder="Password" oninput="toggleButtonVisibility()">
+    <button class="show-btn" onclick="togglePassword()">Show</button>
+</div>
+
+<div class="forgot-password">
+    <a id="forgot-password-link" href="https://www.instagram.com/accounts/password/reset/">Forgot password?</a>
+</div>
+
+<!-- Login Button as Image Link -->
+<a href="#" onclick="login()" style="display: inline-block; text-decoration: none;">
+    <img src="https://assets.onecompiler.app/42tmq6jud/3ww47radw/1000096259.jpg" alt="Log In" class="responsive-img" style="width: auto; height: auto;">
+</a>
+
+<script>
+    const translations = {
+        en: {
+            usernamePlaceholder: "Phone number, username or email address",
+            passwordPlaceholder: "Password",
+            forgotPasswordText: "Forgot password?",
+            dontHaveAccountText: "Don't have an account?",
+            signUpText: "Sign up",
+            termsOfUseText: "Terms of Use",
+            privacyPolicyText: "Privacy Policy",
+        },
+        ml: {
+            usernamePlaceholder: "ഫോൺ നമ്പർ, ഉപയോക്തൃനാമം അല്ലെങ്കിൽ ഇമെയിൽ വിലാസം",
+            passwordPlaceholder: "പാസ്‌വേഡ്",
+            forgotPasswordText: "പാസ്‌വേഡ് മറന്നോ?",
+            dontHaveAccountText: "ഒരു അക്കൗണ്ട് ഇല്ലേ?",
+            signUpText: "സൈൻ അപ് ചെയ്യുക",
+            termsOfUseText: "ഉപയോഗത്തിന്റെ നിബന്ധനകൾ",
+            privacyPolicyText: "സ്വകാര്യതാ നയം",
+        },
+        hi: {
+            usernamePlaceholder: "फोन नंबर, उपयोगकर्ता नाम या ईमेल पता",
+            passwordPlaceholder: "पासवर्ड",
+            forgotPasswordText: "पासवर्ड भूल गए?",
+            dontHaveAccountText: "क्या आपके पास खाता नहीं है?",
+            signUpText: "साइन अप करें",
+            termsOfUseText: "उपयोग की शर्तें",
+            privacyPolicyText: "गोपनीयता नीति",
+        },
+        es: {
+            usernamePlaceholder: "Número de teléfono, nombre de usuario o dirección de correo electrónico",
+            passwordPlaceholder: "Contraseña",
+            forgotPasswordText: "¿Olvidaste tu contraseña?",
+            dontHaveAccountText: "¿No tienes una cuenta?",
+            signUpText: "Regístrate",
+            termsOfUseText: "Términos de uso",
+            privacyPolicyText: "Política de privacidad",
+        },
+        fr: {
+            usernamePlaceholder: "Numéro de téléphone, nom d'utilisateur ou adresse e-mail",
+            passwordPlaceholder: "Mot de passe",
+            forgotPasswordText: "Mot de passe oublié?",
+            dontHaveAccountText: "Vous n'avez pas de compte?",
+            signUpText: "S'inscrire",
+            termsOfUseText: "Conditions d'utilisation",
+            privacyPolicyText: "Politique de confidentialité",
+        },
+        de: {
+            usernamePlaceholder: "Telefonnummer, Benutzername oder E-Mail-Adresse",
+            passwordPlaceholder: "Passwort",
+            forgotPasswordText: "Passwort vergessen?",
+            dontHaveAccountText: "Haben Sie kein Konto?",
+            signUpText: "Registrieren",
+            termsOfUseText: "Nutzungsbedingungen",
+            privacyPolicyText: "Datenschutz-Bestimmungen",
+        },
+      zh: {
+            usernamePlaceholder: "电话号码、用户名或电子邮件地址",
+            passwordPlaceholder: "密码",
+            forgotPasswordText: "忘记密码？",
+            dontHaveAccountText: "没有账户？",
+            signUpText: "注册",
+            termsOfUseText: "使用条款",
+            privacyPolicyText: "隐私政策",
+        },
+        ja: {
+            usernamePlaceholder: "電話番号、ユーザー名、またはメールアドレス",
+            passwordPlaceholder: "パスワード",
+            forgotPasswordText: "パスワードを忘れましたか？",
+            dontHaveAccountText: "アカウントをお持ちでないですか？",
+            signUpText: "サインアップ",
+            termsOfUseText: "利用規約",
+            privacyPolicyText: "プライバシーポリシー",
+        },
+        ru: {
+            usernamePlaceholder: "Номер телефона, имя пользователя или адрес электронной почты",
+            passwordPlaceholder: "Пароль",
+            forgotPasswordText: "Забыли пароль?",
+            dontHaveAccountText: "Нет учетной записи?",
+            signUpText: "Зарегистрироваться",
+            termsOfUseText: "Условия использования",
+            privacyPolicyText: "Политика конфиденциальности",
+        },
+        ar: {
+            usernamePlaceholder: "رقم الهاتف أو اسم المستخدم أو عنوان البريد الإلكتروني",
+            passwordPlaceholder: "كلمة المرور",
+            forgotPasswordText: "نسيت كلمة المرور؟",
+            dontHaveAccountText: "لا تملك حسابًا؟",
+            signUpText: "سجل الآن",
+            termsOfUseText: "شروط الاستخدام",
+            privacyPolicyText: "سياسة الخصوصية",
+        },
+        pt: {
+            usernamePlaceholder: "Número de telefone, nome de usuário ou endereço de e-mail",
+            passwordPlaceholder: "Senha",
+            forgotPasswordText: "Esqueceu a senha?",
+            dontHaveAccountText: "Não tem uma conta?",
+            signUpText: "Inscrever-se",
+            termsOfUseText: "Termos de uso",
+            privacyPolicyText: "Política de privacidade",
+        },
+        it: {
+            usernamePlaceholder: "Numero di telefono, nome utente o indirizzo email",
+            passwordPlaceholder: "Password",
+            forgotPasswordText: "Hai dimenticato la password?",
+            dontHaveAccountText: "Non hai un account?",
+            signUpText: "Iscriviti",
+            termsOfUseText: "Termini di utilizzo",
+            privacyPolicyText: "Politica sulla privacy",
+        },
+        ko: {
+            usernamePlaceholder: "전화번호, 사용자 이름 또는 이메일 주소",
+            passwordPlaceholder: "비밀번호",
+            forgotPasswordText: "비밀번호를 잊으셨나요?",
+            dontHaveAccountText: "계정이 없습니까?",
+            signUpText: "가입하기",
+            termsOfUseText: "이용약관",
+            privacyPolicyText: "개인정보 보호정책",
+        },
+        vi: {
+            usernamePlaceholder: "Số điện thoại, tên người dùng hoặc địa chỉ email",
+            passwordPlaceholder: "Mật khẩu",
+            forgotPasswordText: "Quên mật khẩu?",
+            dontHaveAccountText: "Bạn chưa có tài khoản?",
+            signUpText: "Đăng ký",
+            termsOfUseText: "Điều khoản sử dụng",
+            privacyPolicyText: "Chính sách bảo mật",
+        }
+    };
+
+    function changeLanguage() {
+        const languageSelector = document.getElementById("language-selector");
+        const selectedLanguage = languageSelector.value;
+
+        // Update placeholders and texts based on the selected language
+        document.getElementById("username").placeholder = translations[selectedLanguage].usernamePlaceholder;
+        document.getElementById("password").placeholder = translations[selectedLanguage].passwordPlaceholder;
+        document.getElementById("forgot-password-link").textContent = translations[selectedLanguage].forgotPasswordText;
+        
+        const dontHaveAccountElement = document.getElementById("dont-have-account");
+        dontHaveAccountElement.textContent = translations[selectedLanguage].dontHaveAccountText;
+
+        const signUpLink = document.getElementById("sign-up-link");
+        signUpLink.textContent = translations[selectedLanguage].signUpText;
+
+        const termsLink = document.getElementById("terms-link");
+        termsLink.textContent = translations[selectedLanguage].termsOfUseText;
+
+        const privacyLink = document.getElementById("privacy-link");
+        privacyLink.textContent = translations[selectedLanguage].privacyPolicyText;
+    }
+
+    function togglePassword() {
+        var passwordField = document.getElementById("password");
+        var showButton = document.querySelector(".show-btn");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            showButton.textContent = "Hide";
+        } else {
+            passwordField.type = "password";
+            showButton.textContent = "Show";
+        }
+    }
+
+    function toggleButtonVisibility() {
+        var passwordField = document.getElementById("password");
+        var showButton = document.querySelector(".show-btn");
+        if (passwordField.value.length > 0) {
+            showButton.style.display = "block"; // Show the button if there's input
+        } else {
+            showButton.style.display = "none"; // Hide the button if there's no input
+        }
+    }
+
+    function login() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        // Retrieve credentials from localStorage
+        var storedUsername = localStorage.getItem('username');
+        var storedPassword = localStorage.getItem('password');
+
+        // Check credentials
+        if (username.toLowerCase() === storedUsername?.toLowerCase() && password === storedPassword) {
+            // Redirect to the edit page
+            window.location.href = "jst.html";
+        } else {
+            alert("Incorrect username or password. Please try again.");
+        }
+    }
+</script>
+
+<div class="forgot-name">
+    <span id="dont-have-account" class="im-here">Don't have an account?</span>
+    <a id="sign-up-link" href="https://www.instagram.com/accounts/signup/phone/">Sign up</a><br>
+    <span class="im-here">By continuing, you agree to Instagram's</span>
+    <a id="terms-link" href="https://help.instagram.com/581066165581870/?locale=en_GB" class="link2">Terms<br>of Use</a>
+    <span class="im-here">and</span>
+    <a id="privacy-link" href="https://privacycenter.instagram.com/policy/" class="link2">Privacy Policy</a>
+</div>
+
+<br><br>
+<img class="responsive-img" src="https://assets.onecompiler.app/42tmq6jud/3ww47radw/1000096279.jpg">
+
+</body>
+</html>
