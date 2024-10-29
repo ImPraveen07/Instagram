@@ -37,6 +37,14 @@
         input[type="button"]:hover {
             background-color: #333; /* Darker background on hover */
         }
+        marquee {
+            color: cyan; /* Change marquee text color */
+            font-size: 0.7rem; /* Adjust font size for marquee */
+            position: absolute; /* Position the marquee */
+            bottom: 10px; /* Distance from the bottom */
+            left: 0; /* Start from the left */
+            width: 100%; /* Full width */
+        }
     </style>
     <script>
         function generateCredentials() {
@@ -60,10 +68,11 @@
     <div class="container">
         <h1>Hey!!! I created my own version of Instagram</h1><br>
         Use below username and password for login<br>
-        <p>Your random username: <span id="usernameDisplay"></span></p>
-        <p>Your random password: <span id="passwordDisplay"></span></p>
+        <p>USERNAME: <span id="usernameDisplay"></span></p>
+        <p>PASSWORD: <span id="passwordDisplay"></span></p>
         <a href="instalogin.html"><input type="button" value="Go to Login Page"></a> <!-- Link updated -->
     </div>
+    <marquee direction="right">Thank you for visiting💓....</marquee> <!-- Marquee for scrolling text -->
 
 </body>
 </html>
