@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Video</title>
+    <style>
+        body {
+            margin: 0; /* Remove all default margin */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 200vh; /* Increased height to enable scrolling */
+            overflow-y: scroll; /* Allow scrolling */
+        }
+        video, img {
+            max-width: 100%; /* Set max width for both video and image */
+            height: auto; /* Maintain aspect ratio */
+            margin: 0; /* No margin between videos */
+        }
+        .spacer {
+            height: 100vh; /* Creates space to scroll */
+        }
+    </style>
+</head>
+<body bgcolor="black">
+    <a href="jst.html">
+        <img src="https://assets.onecompiler.app/42tmq6jud/3ww47radw/1000100348.jpg" alt="Descriptive Alt Text" id="image1" />
+    </a>
+    
+    <video id="video1" autoplay playsinline loop preload="auto">
+        <source src="pra.mp4" type="video/mp4"> <!-- Updated path -->
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="spacer"></div> <!-- Spacer to enable scrolling -->
+    
+    <img src="https://assets.onecompiler.app/42tmq6jud/3ww47radw/1000100349.jpg" alt="Descriptive Alt Text" id="image2" />
+
+    <video id="video2" loop autoplay>
+        <source src="pra.mp4" type="video/mp4"> <!-- Updated path -->
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        const video1 = document.getElementById('video1');
+        const video2 = document.getElementById('video2');
+        let isScrolling = false; // To track scroll events
+
+        // Function to reset videos
+        function resetVideos() {
+            video1.currentTime = 0; // Reset first video to 0 seconds
+            video2.currentTime = 0; // Reset second video to 0 seconds
+        }
+
+        // Listen for scroll event with debounce
+        window.addEventListener('scroll', function() {
+            if (!isScrolling) {
+                window.requestAnimationFrame(function() {
+                    // Get the distance from the top of the first video
+                    const rect = video1.getBoundingClientRect();
+                    
+                    // Check if the first video is out of view
+                    if (rect.bottom < 0) {
+                        // Pause the first video and play the second video
+                        video1.pause();
+                        resetVideos(); // Reset both videos
+                        video2.play(); // Play the second video
+                    } else if (rect.top >= 0) {
+                        // Reset and play the first video when it comes back into view
+                        resetVideos(); // Reset both videos
+                        video1.play(); // Play the first video
+                        video2.pause(); // Pause the second video
+                    }
+                    isScrolling = false;
+                });
+            }
+            isScrolling = true;
+        });
+
+        // Event listeners to loop videos
+        video1.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        });
+
+        video2.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        });
+
+        // Unmute videos on first user interaction (click)
+        window.addEventListener('click', function() {
+            video1.muted = false; // Unmute first video
+            video2.muted = false; // Unmute second video
+        });
+    </script>
+
+</body>
+</html>
